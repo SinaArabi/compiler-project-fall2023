@@ -194,7 +194,7 @@ namespace
         StringRef Var = *I;
         // StringRef Var2 = *e_I;
 
-        llvm::errs() << "kososher" << Var2 << "\n";
+        // llvm::errs() << "kososher" << Var2 << "\n";
         Value *val = nullptr;
         // Create an alloca instruction to allocate memory for the variable.
         // var_rels[Var].insert()
