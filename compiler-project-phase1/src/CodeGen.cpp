@@ -1,3 +1,4 @@
+#include <iostream>
 #include <map>
 #include <set>
 #include "CodeGen.h"
@@ -7,6 +8,7 @@
 #include "llvm/Support/raw_ostream.h"
 
 using namespace llvm;
+using namespace std;
 
 // Define a visitor class for generating LLVM IR from the AST.
 namespace
