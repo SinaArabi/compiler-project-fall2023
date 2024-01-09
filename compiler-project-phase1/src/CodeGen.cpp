@@ -192,7 +192,7 @@ namespace
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I, ++e_I)
       {
         StringRef Var = *I;
-        StringRef Var2 = *e_I;
+        // StringRef Var2 = *e_I;
 
         llvm::errs() << "kososher" << Var2 << "\n";
         Value *val = nullptr;
