@@ -187,6 +187,7 @@ namespace
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I, ++e_I)
       {
         StringRef Var = *I;
+        llvm::errs() << "kososher" << Var << "\n";
         Value *val = nullptr;
         // Create an alloca instruction to allocate memory for the variable.
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
