@@ -1,3 +1,5 @@
+#include <map>
+#include <set>
 #include "CodeGen.h"
 #include "llvm/ADT/StringMap.h"
 #include "llvm/IR/IRBuilder.h"
@@ -179,6 +181,7 @@ namespace
 
     virtual void visit(Declaration &Node) override
     {
+      map<StringRef, set<StringRef>> var_rels;
 
       // Our code
       bool hasValue = false;
@@ -187,9 +190,12 @@ namespace
       for (auto I = Node.begin(), E = Node.end(); I != E; ++I, ++e_I)
       {
         StringRef Var = *I;
-        llvm::errs() << "kososher" << Var << "\n";
+        StringRef Var2 = *e_I;
+
+        llvm::errs() << "kososher" << Var2 << "\n";
         Value *val = nullptr;
         // Create an alloca instruction to allocate memory for the variable.
+        // var_rels[Var].insert()
         nameMap[Var] = Builder.CreateAlloca(Int32Ty);
         
         if (e_I != e_E) // star or not ? 
