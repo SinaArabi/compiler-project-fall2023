@@ -10,11 +10,9 @@ using namespace std;
     bool right_alive = false;
     llvm::SmallVector<Expr *> exprs;
     llvm::SmallVector<llvm::StringRef> live_var;
-    llvm::SmallVector<llvm::StringRef> live_exprs;
     public:
     OptimizeAST(){
       live_var.push_back(llvm::StringRef("result"));
-      live_exprs.push_back(llvm::StringRef("result"));
     }
 
 
@@ -41,7 +39,6 @@ using namespace std;
     {
       if(right_alive){
         live_var.push_back(Node.getVal());
-        live_exprs.push_back(Node.getVal());
       }
     };
 
@@ -50,12 +47,10 @@ using namespace std;
     // Visit function for BinaryOp nodes
     virtual void visit(BinaryOp &Node) override{
       (Node.getLeft()) -> accept(*this);
-      (Node.getLeft()) -> accept(*this);
+      (Node.getRight()) -> accept(*this);
     };
 
-    virtual void visit(Condition &node) override{}
-    virtual void visit(Loop &node) override{}
-    virtual void visit(BE &node) override{}
+    
 
     // Visit function for Assignment nodes
     virtual void visit(Assignment &Node) override
@@ -75,7 +70,7 @@ using namespace std;
     };
 
     virtual void visit(Declaration &Node) override
-    {
+    { 
       right_alive = false;
       llvm::StringRef left = *Node.begin();
       auto itr = find(live_var.begin(), live_var.end(), left);
@@ -86,22 +81,9 @@ using namespace std;
         if (Node.begin_values())
           (* Node.begin_values())->accept(*this);
       }
-
-    
-      if (find(live_exprs.begin(), live_exprs.end(), left) == live_exprs.end()){
-        right_alive = true;
-      }
-      else{
-        right_alive = false;
-      }
     };
-
-
-
     
   };
-
-
 
 class Optimization{ 
   public:
