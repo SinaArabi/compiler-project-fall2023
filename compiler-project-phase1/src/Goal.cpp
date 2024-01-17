@@ -1,5 +1,6 @@
 #include "CodeGen.h"
 #include "Parser.h"
+#include "Optimization.cpp"
 #include "Sema.h"
 #include "llvm/Support/CommandLine.h"
 #include "llvm/Support/InitLLVM.h"
@@ -35,6 +36,9 @@ int main(int argc, const char **argv)
         llvm::errs() << "Syntax errors occurred\n";
         return 1;
     }
+
+    Optimization Opt_tree;
+    Opt_tree.optimize(Tree);
 
     // Perform semantic analysis on the AST.
     Sema Semantic;
